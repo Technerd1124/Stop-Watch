@@ -4,61 +4,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> Stop Watch | HTML|CSS |JAVASCRIPT </title>
-        <script>
-            var timeTag = document.getElementById("time");
-            let timer = null;
-            let startTime = 0;
-            let timeElapsed = 0;
-            let isRunning = false;
-
-            function start() {
-                if (!isRunning) {
-                    startTime = Date.now() - timeElapsed;
-                    timer = setInterval("update()", 10);
-                    isRunning = true;
-                    console.log(timer)
-                }
-
-
-            }
-            function stop() {
-
-                if (isRunning) {
-                    clearInterval(timer);
-                    timeElapsed = Date.now() - startTime;
-                    isRunning = false;
-                }
-
-            }
-            function reset() {
-
-                clearInterval(timer);
-                timeElapsed = 0;
-                timeTag.innerHTML = " 00 : 00 : 00 : 00 ";
-                isRunning = false;
-
-
-            }
-
-            function update() {
-
-                const CurrentTime = Date.now();
-                timeElapsed = CurrentTime - startTime;
-
-                let hours = Math.floor(timeElapsed / (1000 * 60 * 60));
-                let minutes = Math.floor(timeElapsed / (1000 * 60) % 60);
-                let seconds = Math.floor(timeElapsed / 1000 % 60);
-                let milliseconds = Math.floor(timeElapsed % 1000 / 10);
-
-                hours = String(hours).padStart(2, "0")
-                minutes = String(minutes).padStart(2, "0")
-                seconds = String(seconds).padStart(2, "0")
-                milliseconds = String(milliseconds).padStart(2, "0")
-
-                timeTag.textContent = ` ${hours} : ${minutes} :${seconds} :${milliseconds}`;
-            }
-
-        </script>
         <style>
             body {
                 display: flex;
@@ -149,5 +94,60 @@
             </div>
         </div>
 
+         <script>
+            var timeTag = document.getElementById("time");
+            let timer = null;
+            let startTime = 0;
+            let timeElapsed = 0;
+            let isRunning = false;
+
+            function start() {
+                if (!isRunning) {
+                    startTime = Date.now() - timeElapsed;
+                    timer = setInterval("update()", 10);
+                    isRunning = true;
+                    console.log(timer)
+                }
+
+
+            }
+            function stop() {
+
+                if (isRunning) {
+                    clearInterval(timer);
+                    timeElapsed = Date.now() - startTime;
+                    isRunning = false;
+                }
+
+            }
+            function reset() {
+
+                clearInterval(timer);
+                timeElapsed = 0;
+                timeTag.innerHTML = " 00 : 00 : 00 : 00 ";
+                isRunning = false;
+
+
+            }
+
+            function update() {
+
+                const CurrentTime = Date.now();
+                timeElapsed = CurrentTime - startTime;
+
+                let hours = Math.floor(timeElapsed / (1000 * 60 * 60));
+                let minutes = Math.floor(timeElapsed / (1000 * 60) % 60);
+                let seconds = Math.floor(timeElapsed / 1000 % 60);
+                let milliseconds = Math.floor(timeElapsed % 1000 / 10);
+
+                hours = String(hours).padStart(2, "0")
+                minutes = String(minutes).padStart(2, "0")
+                seconds = String(seconds).padStart(2, "0")
+                milliseconds = String(milliseconds).padStart(2, "0")
+
+                timeTag.textContent = ` ${hours} : ${minutes} :${seconds} :${milliseconds}`;
+            }
+
+        </script>
     </body>
 </html>
