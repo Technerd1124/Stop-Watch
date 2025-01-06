@@ -1,153 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Stop Watch | HTML|CSS |JAVASCRIPT </title>
-        <style>
-            body {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                background-color: hsla(0, 0%, 90%);
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch | HTML | CSS | JavaScript</title>
+    <style>
+        /* General Body Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f7f7f7, #eaeaea);
+            font-family: "Poppins", Arial, sans-serif;
+        }
 
-            #myh1 {
-                color: rgb(75, 64, 64);
-                font-size: 4rem;
-                font-family: "Arial", sans-serif;
-            }
+        /* Heading Styling */
+        h1#myh1 {
+            color: #333;
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
 
+        /* Stopwatch Container */
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+            max-width: 350px;
+            width: 90%;
+        }
 
-            #container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 30px;
-                border: 5px solid;
-                border-radius: 50px;
-                background: #fff;
+        /* Timer Display */
+        #time {
+            font-size: 3rem;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+        }
 
-            }
+        /* Button Container */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
 
-            #time {
-                font-size: 4rem;
-                font-family: monospace;
-                font-weight: bold;
-                color: hsla(0, 0%, 30%);
-                text-shadow: 2px 2px 2px hsla(0, 0%, 0%, 0.405);
+        /* Button Styling */
+        .controls button {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 10px 15px;
+            flex: 1;
+            margin: 0 5px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            background: #555;
+            transition: all 0.3s ease;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        }
 
+        .controls button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+        }
 
-            }
+        .controls button:active {
+            transform: translateY(0px);
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        }
 
-            .controls button {
-                font-size: 1.5rem;
-                font-weight: bold;
-                padding: 10px 20px;
-                margin: 5px;
-                min-width: 125px;
-                border: none;
-                border-radius: 10px;
-                cursor: pointer;
-                color: #fff;
-                transition: background 0.5s ease;
-            }
+        /* Start Button */
+        #startBtn {
+            background: #28a745;
+        }
 
-            .controls :nth-child(1) {
-                background: hsla(120, 100%, 25%, 0.79);
-            }
+        #startBtn:hover {
+            background: #218838;
+        }
 
+        /* Stop Button */
+        #stopBtn {
+            background: #dc3545;
+        }
 
-            .controls :nth-child(1):hover {
-                background: hsla(120, 100%, 25%, 0.451);
-            }
+        #stopBtn:hover {
+            background: #c82333;
+        }
 
+        /* Reset Button */
+        #resetBtn {
+            background: #007bff;
+        }
 
-            .controls :nth-child(2) {
-                background: rgba(255, 0, 0, 0.664);
-            }
-
-            .controls :nth-child(2):hover {
-                background: rgba(255, 0, 0, 0.448);
-            }
-
-
-            .controls :nth-child(3) {
-                background: rgba(0, 64, 255, 0.808);
-            }
-
-            .controls :nth-child(3):hover {
-                background: rgba(0, 64, 255, 0.418);
-            }
-        </style>
-    </head>
-
-    <body>
-
-        <h1 id="myh1"> StopWatch</h1>
-        <div id="container">
-            <div id="time"> 00 : 00: 00 :00 </div>
-            <div class="controls">
-                <button id="startBtn" onclick="start()"> Start</button>
-                <button id="stopBtn" onclick="stop()"> Stop</button>
-                <button id="resetBtn" onclick="reset()"> Reset</button>
-            </div>
+        #resetBtn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="myh1">Stopwatch</h1>
+    <div id="container">
+        <div id="time">00 : 00 : 00 : 00</div>
+        <div class="controls">
+            <button id="startBtn" onclick="start()">Start</button>
+            <button id="stopBtn" onclick="stop()">Stop</button>
+            <button id="resetBtn" onclick="reset()">Reset</button>
         </div>
+    </div>
 
-         <script>
-            var timeTag = document.getElementById("time");
-            let timer = null;
-            let startTime = 0;
-            let timeElapsed = 0;
-            let isRunning = false;
+    <script>
+        var timeTag = document.getElementById("time");
+        let timer = null;
+        let startTime = 0;
+        let timeElapsed = 0;
+        let isRunning = false;
 
-            function start() {
-                if (!isRunning) {
-                    startTime = Date.now() - timeElapsed;
-                    timer = setInterval("update()", 10);
-                    isRunning = true;
-                    console.log(timer)
-                }
-
-
+        function start() {
+            if (!isRunning) {
+                startTime = Date.now() - timeElapsed;
+                timer = setInterval(update, 10);
+                isRunning = true;
             }
-            function stop() {
+        }
 
-                if (isRunning) {
-                    clearInterval(timer);
-                    timeElapsed = Date.now() - startTime;
-                    isRunning = false;
-                }
-
-            }
-            function reset() {
-
+        function stop() {
+            if (isRunning) {
                 clearInterval(timer);
-                timeElapsed = 0;
-                timeTag.innerHTML = " 00 : 00 : 00 : 00 ";
+                timeElapsed = Date.now() - startTime;
                 isRunning = false;
-
-
             }
+        }
 
-            function update() {
+        function reset() {
+            clearInterval(timer);
+            timeElapsed = 0;
+            timeTag.innerHTML = "00 : 00 : 00 : 00";
+            isRunning = false;
+        }
 
-                const CurrentTime = Date.now();
-                timeElapsed = CurrentTime - startTime;
+        function update() {
+            const currentTime = Date.now();
+            timeElapsed = currentTime - startTime;
 
-                let hours = Math.floor(timeElapsed / (1000 * 60 * 60));
-                let minutes = Math.floor(timeElapsed / (1000 * 60) % 60);
-                let seconds = Math.floor(timeElapsed / 1000 % 60);
-                let milliseconds = Math.floor(timeElapsed % 1000 / 10);
+            let hours = Math.floor(timeElapsed / (1000 * 60 * 60));
+            let minutes = Math.floor((timeElapsed / (1000 * 60)) % 60);
+            let seconds = Math.floor((timeElapsed / 1000) % 60);
+            let milliseconds = Math.floor((timeElapsed % 1000) / 10);
 
-                hours = String(hours).padStart(2, "0")
-                minutes = String(minutes).padStart(2, "0")
-                seconds = String(seconds).padStart(2, "0")
-                milliseconds = String(milliseconds).padStart(2, "0")
+            hours = String(hours).padStart(2, "0");
+            minutes = String(minutes).padStart(2, "0");
+            seconds = String(seconds).padStart(2, "0");
+            milliseconds = String(milliseconds).padStart(2, "0");
 
-                timeTag.textContent = ` ${hours} : ${minutes} :${seconds} :${milliseconds}`;
-            }
-
-        </script>
-    </body>
+            timeTag.textContent = `${hours} : ${minutes} : ${seconds} : ${milliseconds}`;
+        }
+    </script>
+</body>
 </html>
